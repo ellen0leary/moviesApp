@@ -5,6 +5,9 @@ import FilterControls from "../components/filterControls";
 import { createPortal } from "react-dom";
 
 const MovieListPage = () => {
+  const [titleFilter, setTitleFilter] = useState("");
+  const[genreFilter, setGenreFilter] = useState("0");
+
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     fetch(
@@ -19,11 +22,21 @@ const MovieListPage = () => {
         setMovies(movies);
       });
   }, []);
+
+  const genre = Number(genreFilter)
+  let displayedMovies = movies
+    .filter(m => {
+      return m.title.toLowerCase().search(titleFilter.toLowerCase()) !== -1;
+  })
+  .filter(m => {
+      return genre > 0? mgenre_ids.includes(Number(genreFilter)) : true;
+  });
+
   return (
     <>
-      <Header numMovies={movies.length} />
-      <FilterControls />
-      <MovieList movies={movies} />
+      <Header numMovies={displayedMovies.length} />
+      <FilterControls  onUserInput={handleFilterChange}/>
+      <MovieList movies={displayedMovies} />
     </>
   );
 };
