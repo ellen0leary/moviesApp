@@ -3,6 +3,7 @@ import Header from "../components/headerMovieList";
 import MovieList from "../components/movieList";
 import FilterControls from "../components/filterControls";
 import { createPortal } from "react-dom";
+import StubAPI from "../api/stubAPI";
 
 const MovieListPage = () => {
   const [titleFilter, setTitleFilter] = useState("");
@@ -27,16 +28,33 @@ const MovieListPage = () => {
   let displayedMovies = movies
     .filter(m => {
       return m.title.toLowerCase().search(titleFilter.toLowerCase()) !== -1;
-  })
-  .filter(m => {
-      return genre > 0? mgenre_ids.includes(Number(genreFilter)) : true;
-  });
+    })
+    .filter(m => {
+      return genre > 0 ? m.genre_ids.includes(Number(genreFilter)) : true;
+    });
 
+  const handleFilterChange = (type, value) => {
+    if (type === "name") setTitleFilter(value);
+    else setGenreFilter(value);
+  };
+  
+  const addToFavorites = movieId => {
+    // Find index position of selected movie in the list
+    const index = movies.map(m => m.id).indexOf(movieId)
+
+    StubAPI.add(movies[index])
+    const updatedList = [...movies]  // Make a copy of the movie list
+    updatedList.splice(index, 1)     // Remove selected movie from home page list
+    setMovies(updatedList)  
+  }
   return (
     <>
       <Header numMovies={displayedMovies.length} />
-      <FilterControls  onUserInput={handleFilterChange}/>
-      <MovieList movies={displayedMovies} />
+      <FilterControls onUserInput={handleFilterChange} />
+      <MovieList
+        movies={displayedMovies}
+        buttonHandler={addToFavorites}
+      /> 
     </>
   );
 };

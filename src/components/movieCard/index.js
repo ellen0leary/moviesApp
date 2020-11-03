@@ -6,6 +6,10 @@ import {Link} from "react-router-dom";
 
 
 const MovieCard = props => {
+  const handleAddToFavorites = e =>{
+    e.preventDefault()
+    props.buttonHandler(props.movie.id)
+  }
   return (
       
     <div className="col-sm-3">
@@ -22,6 +26,7 @@ const MovieCard = props => {
           
         />
         </Link>
+
         
         <div className="card-body">
           <h4 className="card-title ">{props.movie.title}</h4>
@@ -36,7 +41,9 @@ const MovieCard = props => {
         </div>
         
         <div className="card-footer">
-          <button type="button" className="btn w-100 btn-primary">
+          <button type="button" className="btn w-100 btn-primary"
+                onClick={handleAddToFavorites}
+                >
             Add to Favorites
           </button>
         </div>
