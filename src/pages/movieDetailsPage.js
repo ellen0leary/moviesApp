@@ -42,6 +42,10 @@ const MoviePage = props => {
     ) : (
       <p>Waiting for movie details</p>
     )}
+    <Link
+                className="btn btn-primary btn-block active"
+                to={`/movies/${id}/recommened`}
+              >Show Recommend Movies</Link>
   </>
   );
 };

@@ -37,3 +37,11 @@ export const getMovies = () => {
       .then(res => res.json())
       .then(json => json.results);
   };
+
+  export const getRecommenedMovies = id => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${id}/release_dates?api_key==${process.env.REACT_APP_TMDB_KEY}`
+    )
+      .then(res => res.json())
+      .then(json => json.results);
+  };
