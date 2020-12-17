@@ -19,6 +19,8 @@ import TopRatedPeople from "./pages/topRatedPage";
 import TopRatedContextProvider from "./contexts/topRatedContext";
 import NowPlayingPage from "./pages/nowPlayingPage";
 import NowPlayingContextProvider from "./contexts/nowPlaying";
+import LatestPage from "./pages/latestPage";
+import LatestContextProvider from "./contexts/lastestContext";
 
 const App = () => {
   return (
@@ -32,6 +34,7 @@ const App = () => {
                 <TrendingContextProvider>
                   <TopRatedContextProvider>
                     <NowPlayingContextProvider>
+                      <LatestContextProvider>
                 <Switch>
                 <Route exact path="/reviews/form" component={AddMovieReviewPage} />
                   <Route path="/reviews/:id" component={MovieReviewPage} />
@@ -41,10 +44,12 @@ const App = () => {
                   <Route exact path="/movies/trending" component={TrendingMovies} />
                   <Route exact path="/movies/topRated" component={TopRatedPeople} />
                   <Route exact path="/movies/nowPlaying" component={NowPlayingPage} />
+                  <Route exact path="/movies/latest" component={LatestPage} />
                   <Route path="/movies/:id" component={MoviePage} />
                   <Route path="/" component={HomePage} />
                   <Redirect from="*" to="/" />
                 </Switch>
+                </LatestContextProvider>
                 </NowPlayingContextProvider>
                 </TopRatedContextProvider>
                 </TrendingContextProvider>

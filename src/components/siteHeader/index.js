@@ -62,6 +62,11 @@ const SiteHeader = () => {
               Now Playing
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link text-white" to="/movies/latest">
+              Latest
+            </Link>
+          </li>
         </ul>
       </nav>
     </nav>

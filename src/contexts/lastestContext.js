@@ -1,7 +1,7 @@
 import React, { useEffect, createContext, useReducer } from "react";
-import { getNowPlayingMovies } from "../api/tmdb-api";
+import { getLatestMovies } from "../api/tmdb-api";
 
-export const NowPlayingContext = createContext(null);
+export const LatestContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -23,14 +23,13 @@ const reducer = (state, action) => {
         ),
         upcoming: [...state.upcoming],
       };
-
     default:
       return state;
   }
 };
 
-const NowPlayingContextProvider = (props) => {
-  const [state, dispatch] = useReducer(reducer, { movies: []});
+const LatestContextProvider = (props) => {
+  const [state, dispatch] = useReducer(reducer, { movies:[]});
 
   const addToFavorites = (movieId) => {
     const index = state.movies.map((m) => m.id).indexOf(movieId);
@@ -42,14 +41,14 @@ const NowPlayingContextProvider = (props) => {
   };
 
   useEffect(() => {
-    getNowPlayingMovies().then((movies) => {
-      dispatch({ type: "load", payload: { movies } });
+    getLatestMovies().then((movie) => {
+      dispatch({ type: "load", payload: { movie } });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <NowPlayingContext.Provider
+    <LatestContext.Provider
       value={{
         movies: state.movies,
         addToFavorites: addToFavorites,
@@ -57,8 +56,8 @@ const NowPlayingContextProvider = (props) => {
       }}
     >
       {props.children}
-    </NowPlayingContext.Provider>
+    </LatestContext.Provider>
   );
 };
 
-export default NowPlayingContextProvider;
+export default LatestContextProvider;
