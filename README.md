@@ -73,7 +73,7 @@ Here is my storybook. I haven't changed anything.
 [recommened]: ./public/recommenedMovies.png
 [reviewLink]: ./public/reviewlink.png
 [cardLink]: ./public/cardlink.png
-[latest]: .public/lasest.png
+[latest]: ./public/lasest.png
 
 [model]: ./data.jpg
 [movieDetail]: ./public/movieDetail.png
