@@ -15,6 +15,8 @@ import RecommendMovies from "./pages/RecommendationsPage";
 import RecommenedContextProvider from "./contexts/recommenedContext";
 import TrendingMovies from "./pages/trendingMovie";
 import TrendingContextProvider from "./contexts/trendingContext";
+import TopRatedPeople from "./pages/topRatedPage";
+import TopRatedContextProvider from "./contexts/topRatedContext";
 
 const App = () => {
   return (
@@ -26,6 +28,7 @@ const App = () => {
               <RecommenedContextProvider>
               <GenresContextProvider>
                 <TrendingContextProvider>
+                  <TopRatedContextProvider>
                 <Switch>
                 <Route exact path="/reviews/form" component={AddMovieReviewPage} />
                   <Route path="/reviews/:id" component={MovieReviewPage} />
@@ -33,11 +36,12 @@ const App = () => {
                   <Route exact path="/movies/upcoming" component={UpcomingMoviePage} />
                   <Route exact path="/movies/:id/recommened" component={RecommendMovies} />
                   <Route exact path="/movies/trending" component={TrendingMovies} />
-                  <Route exact path="/people/trending" component={RecommendMovies} />
+                  <Route exact path="/people/trending" component={TopRatedPeople} />
                   <Route path="/movies/:id" component={MoviePage} />
                   <Route path="/" component={HomePage} />
                   <Redirect from="*" to="/" />
                 </Switch>
+                </TopRatedContextProvider>
                 </TrendingContextProvider>
               </GenresContextProvider>
               </RecommenedContextProvider>

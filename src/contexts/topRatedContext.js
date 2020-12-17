@@ -1,7 +1,7 @@
 import React, { useEffect, createContext, useReducer } from "react";
-import { getRecommenedMovies } from "../api/tmdb-api";
+import { getTopRatedMovies} from "../api/tmdb-api";
 
-export const RecommenedContext = createContext(null);
+export const TopRatedContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -13,7 +13,7 @@ const reducer = (state, action) => {
         upcoming: [...state.upcoming],
       };
     case "load":
-      return { movies: action.payload.movies};
+      return { movies: action.payload.movies, upcoming: [...state.upcoming] };
     case "load-upcoming":
       return { upcoming: action.payload.movies, movies: [...state.movies] };
     case "add-review":
@@ -37,8 +37,8 @@ const reducer = (state, action) => {
   }
 };
 
-const RecommenedContextProvider = (props) => {
-  const [state, dispatch] = useReducer(reducer, { movies: []});
+const TopRatedContextProvider = (props) => {
+  const [state, dispatch] = useReducer(reducer, { movies: [], upcoming: [] });
 
   const addToFavorites = (movieId) => {
     const index = state.movies.map((m) => m.id).indexOf(movieId);
@@ -49,24 +49,26 @@ const RecommenedContextProvider = (props) => {
     dispatch({ type: "add-review", payload: { movie, review } });
   };
 
-  useEffect((movieId) => {
-    getRecommenedMovies(movieId).then((movies) => {
+  useEffect(() => {
+    getTopRatedMovies().then((movies) => {
       dispatch({ type: "load", payload: { movies } });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   return (
-    <RecommenedContext.Provider
+    <TopRatedContext.Provider
       value={{
         movies: state.movies,
+        upcoming: state.upcoming,
         addToFavorites: addToFavorites,
         addReview: addReview,
       }}
     >
       {props.children}
-    </RecommenedContext.Provider>
+    </TopRatedContext.Provider>
   );
 };
 
-export default RecommenedContextProvider;
+export default TopRatedContextProvider;
