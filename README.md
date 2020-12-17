@@ -71,9 +71,9 @@ Here is my storybook. I haven't changed anything.
 
 [stories]: ./public/storybook.png
 [recommened]: ./public/recommenedMovies.png
-[reviewLink]: ./public/reviewLink.png
-[cardLink]: ./public/cardLink.png
-[latest]: ./lasest.png
+[reviewLink]: ./public/reviewlink.png
+[cardLink]: ./public/cardlink.png
+[latest]: .public/lasest.png
 
 [model]: ./data.jpg
 [movieDetail]: ./public/movieDetail.png
