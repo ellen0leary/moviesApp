@@ -11,7 +11,10 @@ import SiteHeader from './components/siteHeader';
 import MoviesContextProvider from "./contexts/moviesContext";
 import GenresContextProvider from "./contexts/genresContext";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
-import RecommendMovies from "./pages/RecommendationsPage"
+import RecommendMovies from "./pages/RecommendationsPage";
+import RecommenedContextProvider from "./contexts/recommenedContext";
+import TrendingMovies from "./pages/trendingMovie";
+import TrendingContextProvider from "./contexts/trendingContext";
 
 const App = () => {
   return (
@@ -20,18 +23,24 @@ const App = () => {
           <SiteHeader />     
           <div className="container-fluid">
             <MoviesContextProvider>
+              <RecommenedContextProvider>
               <GenresContextProvider>
+                <TrendingContextProvider>
                 <Switch>
                 <Route exact path="/reviews/form" component={AddMovieReviewPage} />
                   <Route path="/reviews/:id" component={MovieReviewPage} />
                   <Route exact path="/movies/favorites" component={FavouriteMoviesPage} />
                   <Route exact path="/movies/upcoming" component={UpcomingMoviePage} />
                   <Route exact path="/movies/:id/recommened" component={RecommendMovies} />
+                  <Route exact path="/movies/trending" component={TrendingMovies} />
+                  <Route exact path="/people/trending" component={RecommendMovies} />
                   <Route path="/movies/:id" component={MoviePage} />
                   <Route path="/" component={HomePage} />
                   <Redirect from="*" to="/" />
                 </Switch>
+                </TrendingContextProvider>
               </GenresContextProvider>
+              </RecommenedContextProvider>
             </MoviesContextProvider>
           </div>
         </div>

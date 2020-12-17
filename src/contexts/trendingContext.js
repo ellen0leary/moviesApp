@@ -1,7 +1,7 @@
 import React, { useEffect, createContext, useReducer } from "react";
-import { getRecommenedMovies, getUpcomingMovies } from "../api/tmdb-api";
+import { getTrendingMovie, getUpcomingMovies } from "../api/tmdb-api";
 
-export const RecommenedContext = createContext(null);
+export const TrendingContext = createContext(null);
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,7 +37,7 @@ const reducer = (state, action) => {
   }
 };
 
-const RecommenedContextProvider = (props) => {
+const TrendingContextProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, { movies: [], upcoming: [] });
 
   const addToFavorites = (movieId) => {
@@ -55,21 +55,21 @@ const RecommenedContextProvider = (props) => {
   };
 
   useEffect(() => {
-    getUpcomingMovies().then((movies) => {
+    getTrendingMovie().then((movies) => {
       dispatch({ type: "load", payload: { movies } });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect((movieId) => {
-  //   getUpcomingMovies(movieId).then((movies) => {
-  //     dispatch({ type: "load-upcoming", payload: { movies } });
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    getUpcomingMovies().then((movies) => {
+      dispatch({ type: "load-upcoming", payload: { movies } });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <RecommenedContext.Provider
+    <TrendingContext.Provider
       value={{
         movies: state.movies,
         upcoming: state.upcoming,
@@ -78,8 +78,8 @@ const RecommenedContextProvider = (props) => {
       }}
     >
       {props.children}
-    </RecommenedContext.Provider>
+    </TrendingContext.Provider>
   );
 };
 
-export default RecommenedContextProvider;
+export default TrendingContextProvider;
